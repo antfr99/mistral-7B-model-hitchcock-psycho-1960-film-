@@ -14,10 +14,7 @@ Supabase schema:
         answer      text not null,
         grade       int,              -- 1..GRADE_MAX, nullable
         retrieved   text,             -- optional: the RAG passages used
-        notes       text,             -- optional: grader's comment
-        rag_on      boolean,
-        temperature real,
-        max_tokens  int
+        notes       text              -- optional: grader's comment
     );
 
 Secrets required (Streamlit Cloud: Settings > Secrets, or .streamlit/secrets.toml):
@@ -154,48 +151,6 @@ real 1960 film:
 Where the grading notes are filled in, they appear under the answer. The retrieved
 passages used for grounding are stored alongside each row, so a low grade can be
 traced back to whether the retrieval was poor or the model ignored good passages.
-        """
-    )
-
-with st.expander("What the testing found"):
-    st.markdown(
-        """
-These are the honest findings from evaluating the model, including its limits.
-
-**Factual questions don't prove the fine-tuning worked.** Well-known facts about
-*Psycho* (director, lead actors, release year, score, budget) are already in the
-base Mistral model's pretraining *and* appear near-verbatim in the training data.
-So a correct answer to "Who directed Psycho?" shows only that the fact is
-available — not that the fine-tuning taught it. On these questions the plain base
-model answers just as well.
-
-**Where the fine-tuning does show value.** Two things separate this model from the
-plain base model:
-- *Synthesis on thematic questions* — asked for "the central themes" or how the
-  film uses duality, the model composes answers that don't exist as any single
-  training row, drawing across multiple passages. That is more than memorisation.
-- *Dataset-exclusive content* — the training data contains a large amount of
-  invented, in-character dialogue (e.g. many Sheriff Chambers lines) that is **not**
-  in the real film and therefore cannot be in the base model. When the model
-  reproduces this material, it provably came from the fine-tuning. This is the
-  cleanest evidence the training took.
-
-**Known limitations.**
-- *Name corruption* — 4-bit quantisation plus repetition penalties frequently
-  mangle proper nouns ("Hichcock", "Anthony Perks", "Arbegast"). Meaning usually
-  survives, but exact spelling is unreliable.
-- *Grounding is double-edged* — strict "use only these passages" prompting caused
-  failures when a fact wasn't in the retrieved chunk (the release-year question
-  broke this way). The prompt was softened so the model can fill gaps with its own
-  on-topic knowledge.
-- *The off-topic gate is imperfect* — it correctly refuses clearly unrelated
-  questions (Avengers, Greece) but can be fooled by plausible-but-fake film
-  premises ("the alien scene", "the plane scene"), which slip under the relevance
-  threshold and receive confident invented answers.
-- *Dataset caveat* — a substantial share of the ~5,555 training rows is invented
-  dialogue and heavy paraphrase rather than verified fact. The model is therefore
-  best described as reliable at *reproducing and synthesising its training data*,
-  not as a verified authority on the real film.
         """
     )
 
