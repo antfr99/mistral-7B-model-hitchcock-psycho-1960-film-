@@ -46,7 +46,10 @@ def load_rows():
     sb = get_client()
     res = (
         sb.table(TABLE)
-        .select("id, question, answer, grade, retrieved, notes, date_asked")
+        .select(
+            "id, question, answer, grade, retrieved, notes, date_asked, "
+            "rag_on, temperature, max_tokens"
+        )
         .order("date_asked", desc=True)
         .execute()
     )
@@ -78,6 +81,12 @@ st.markdown(
       .qa-notes { color:#5a5a5a; font-size:.85rem; font-style:italic; margin-top:.5rem; }
       .grade-pill { display:inline-block; padding:.1rem .55rem; border-radius:999px;
                     font-weight:700; font-size:.8rem; }
+      .qa-settings { margin-top:.6rem; display:flex; gap:.4rem; flex-wrap:wrap; }
+      .set-pill { display:inline-block; padding:.1rem .5rem; border-radius:4px;
+                  font-size:.72rem; font-weight:600; background:#e8e6e2; color:#4a4a4a;
+                  letter-spacing:.02em; }
+      .set-on  { background:#dbe9f5; color:#1c4a7a; }
+      .set-off { background:#f0e2d8; color:#8a4a1c; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -260,12 +269,32 @@ for _, r in view.iterrows():
         else ""
     )
 
+    # --- settings pills (RAG / temperature / tokens) ---
+    settings_bits = []
+    rag_on = r.get("rag_on")
+    if pd.notna(rag_on):
+        if rag_on:
+            settings_bits.append('<span class="set-pill set-on">RAG on</span>')
+        else:
+            settings_bits.append('<span class="set-pill set-off">RAG off</span>')
+    temp = r.get("temperature")
+    if pd.notna(temp):
+        settings_bits.append(f'<span class="set-pill">temp {float(temp):g}</span>')
+    toks = r.get("max_tokens")
+    if pd.notna(toks):
+        settings_bits.append(f'<span class="set-pill">{int(toks)} tok</span>')
+    settings_html = (
+        f'<div class="qa-settings">{"".join(settings_bits)}</div>'
+        if settings_bits else ""
+    )
+
     st.markdown(
         f"""
         <div class="qa-card">
           <div class="qa-q">{r['question']}</div>
           <div class="qa-a">{r['answer']}</div>
           {notes_html}
+          {settings_html}
           <div class="qa-meta">
             {when} &nbsp;·&nbsp; row {r['id']} &nbsp;·&nbsp;
             <span class="grade-pill" style="background:{bg};color:{fg};">{label}</span>
