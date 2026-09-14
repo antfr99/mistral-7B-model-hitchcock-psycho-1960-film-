@@ -129,16 +129,17 @@ st.markdown(
       .cal-head, .cal-grid {{ display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }}
       .cal-head div {{ color: {MUTED}; font-size: .76rem; padding: 0 .3rem .3rem; }}
       .cal-cell {{
-        background: {PANEL}; border: 1px solid {LINE}; border-radius: 9px;
+        background: #ffffff; border: 1px solid #E2E8F0; border-radius: 9px;
         min-height: 96px; padding: .38rem .4rem; overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
       }}
       .cal-cell.dim {{ opacity: .35; }}
-      .cal-cell.today {{ border-color: {AMBER}; box-shadow: inset 0 0 0 1px {AMBER}33; }}
+      .cal-cell.today {{ border-color: {AMBER}; box-shadow: inset 0 0 0 1px {AMBER}55; }}
       .cal-date {{
         font-family: 'IBM Plex Mono', monospace; font-size: .78rem;
-        color: {MUTED}; display: flex; justify-content: space-between;
+        color: #94A3B8; display: flex; justify-content: space-between;
       }}
-      .cal-date b {{ color: {TEXT}; font-weight: 500; }}
+      .cal-date b {{ color: #0F172A; font-weight: 600; }}
       .chip {{
         display: inline-block; font-family: 'IBM Plex Mono', monospace;
         font-size: .7rem; padding: .1rem .34rem; margin: .16rem .16rem 0 0;
