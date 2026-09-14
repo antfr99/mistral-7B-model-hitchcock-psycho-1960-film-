@@ -145,10 +145,10 @@ st.markdown(
         font-size: .7rem; padding: .1rem .34rem; margin: .16rem .16rem 0 0;
         border-radius: 5px; border: 1px solid transparent;
       }}
-      .chip.bmo {{ background: {AZURE}22; border-color: {AZURE}66; color: #BCD0F7; }}
-      .chip.amc {{ background: {AMBER}1f; border-color: {AMBER}66; color: #F0CE95; }}
-      .chip.tbd {{ background: #ffffff0d; border-color: {LINE}; color: {MUTED}; }}
-      .more {{ color: {MUTED}; font-size: .68rem; display: block; margin-top: .2rem; }}
+      .chip.bmo {{ background: #1D4ED8; border-color: #1E40AF; color: #EFF6FF; font-weight: 500; }}
+      .chip.amc {{ background: #B45309; border-color: #92400E; color: #FEF3C7; font-weight: 500; }}
+      .chip.tbd {{ background: #374151; border-color: #4B5563; color: #D1D5DB; font-weight: 500; }}
+      .more {{ color: #64748B; font-size: .68rem; display: block; margin-top: .2rem; font-weight: 500; }}
 
       .legend {{ color: {MUTED}; font-size: .78rem; margin-top: .6rem; }}
       .legend b {{ color: {TEXT}; font-weight: 500; }}
