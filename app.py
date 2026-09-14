@@ -116,13 +116,14 @@ st.markdown(
 
       .statbar {{ display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }}
       .stat {{
-        flex: 1 1 150px; background: {PANEL}; border: 1px solid {LINE};
+        flex: 1 1 150px; background: #ffffff; border: 1px solid #E2E8F0;
         border-radius: 10px; padding: .7rem .85rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
       }}
-      .stat .k {{ color: {MUTED}; font-size: .74rem; }}
+      .stat .k {{ color: #64748B; font-size: .74rem; }}
       .stat .v {{
         font-family: 'IBM Plex Mono', monospace; font-size: 1.35rem;
-        font-variant-numeric: tabular-nums; margin-top: .15rem;
+        font-variant-numeric: tabular-nums; margin-top: .15rem; color: #0F172A;
       }}
 
       .cal-head, .cal-grid {{ display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }}
