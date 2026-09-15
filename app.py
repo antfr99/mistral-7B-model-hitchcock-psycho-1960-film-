@@ -108,11 +108,15 @@ st.markdown(
       html, body, [class*="css"] {{ font-family: 'Inter Tight', system-ui, sans-serif; }}
 
       .masthead {{
-        display: flex; align-items: baseline; gap: .8rem;
-        border-bottom: 2px solid {LINE}; padding-bottom: .5rem; margin-bottom: 1.1rem;
+        display: flex; align-items: center; gap: .85rem;
+        margin: .25rem 0 .2rem;
       }}
-      .masthead h1 {{ font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; margin: 0; }}
-      .masthead span {{ color: {MUTED}; font-size: .92rem; }}
+      .masthead .mast-icon {{ font-size: 2.6rem; line-height: 1; }}
+      .masthead h1 {{
+        font-size: 2.75rem; font-weight: 700; letter-spacing: -.03em;
+        margin: 0; line-height: 1.15;
+      }}
+      .mast-sub {{ color: {MUTED}; font-size: 1rem; margin: 0 0 1.3rem; }}
 
       .statbar {{ display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }}
       .stat {{
@@ -421,8 +425,9 @@ with st.sidebar:
 # --------------------------------------------------------------------------------------
 
 st.markdown(
-    '<div class="masthead"><h1>Earnings Desk</h1>'
-    "<span>Who reports when, and how the last few quarters landed</span></div>",
+    '<div class="masthead"><span class="mast-icon">📈</span>'
+    "<h1>Earnings Desk</h1></div>"
+    '<div class="mast-sub">Who reports when, and how the last few quarters landed</div>',
     unsafe_allow_html=True,
 )
 
